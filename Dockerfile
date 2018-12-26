@@ -20,9 +20,18 @@ RUN mv apache-tomcat-8.5.37 /usr/local/opt/tomcat
 RUN rm -rf apache-tomcat-8.5.37.tar.gz
 RUN rm -rf apache-tomcat-8.5.37
 
+#install maven
+RUN wget http://www-us.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+RUN tar -zxvf apache-maven-3.5.4-bin.tar.gz
+RUN mv apache-maven-3.5.4 /usr/local/opt/maven
+RUN rm -rf apache-maven-3.5.4
+RUN rm -rf apache-maven-3.5.4-bin.tar.gz
+
 EXPOSE 8080
 
-ENV HOME /root
+ENV JAVA_HOME=/usr/local/opt/jdk8
+ENV MAVEN_HOME=/usr/local/opt/maven
+ENV PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
 
 ADD start.sh /start.sh
 RUN chmod 755 /start.sh
